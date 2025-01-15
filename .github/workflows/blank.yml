@@ -3,15 +3,17 @@ name: CI
 on: 
  workflow_dispatch: 
  schedule:
-   - cron: '45 11 * * *'
+   - cron: '0 12 * * *'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop' 
+    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/develop' 
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.inputs.branch || 'develop' }}
 
     - name: Build and Test
       run: |
