@@ -16,10 +16,10 @@ jobs:
       run: |
         echo "Running build and tests..."
 
-    - name: Send notification to Teams
-      if: always()
-      run: |
-        curl -H 'Content-Type: application/json' -d '{
-          "title": "Build Notification",
-          "text": "The build for commit ${{ github.sha }} has been completed. Status: ${{ job.status }}."
-        }' ${{ secrets.WEBHOOK }}
+    # - name: Send notification to Teams
+    #   if: always()
+    #   run: |
+    #     curl -H 'Content-Type: application/json' -d '{
+    #       "title": "Build Notification",
+    #       "text": "The build for commit ${{ github.sha }} has been completed. Status: ${{ job.status }}."
+    #     }' ${{ secrets.WEBHOOK }}
