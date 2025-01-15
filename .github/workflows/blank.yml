@@ -3,12 +3,12 @@ name: CI
 on: 
  workflow_dispatch: 
  schedule:
-   - cron: '40 10 * * *'
+   - cron: '45 11 * * *'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event_name == 'schedule' && github.ref == 'refs/heads/develop' 
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop' 
 
     steps:
     - uses: actions/checkout@v2
