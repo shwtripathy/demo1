@@ -12,8 +12,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        ref: ${{ github.event.inputs.branch || 'develop' }}
+      # with:
+      #   ref: ${{ github.event.inputs.branch || 'develop' }}
 
     - name: Build and Test
       run: |
