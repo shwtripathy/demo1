@@ -1,0 +1,27 @@
+name: teams
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Run tests
+      run: echo "Running tests..."
+    - name: Notify Microsoft Teams
+      if: always()  # Ensures the notification is sent regardless of the job status
+      run: |
+        curl -H 'Content-Type: application/json' -d '{
+          "text": "Job Status: ${{ job.status }}",
+          "sections": [{
+            "activityTitle": "GitHub Actions Notification",
+            "activitySubtitle": "Repository: ${{ github.repository }}",
+            "facts": [
+              {"name": "Event", "value": "${{ github.event_name }}"},
+              {"name": "Ref", "value": "${{ github.ref }}"},
+              {"name": "Commit", "value": "${{ github.sha }}"},
+              {"name": "Author", "value": "${{ github.actor }}"},
+              {"name": "Job Status", "value": "${{ job.status }}"}
+            ]
+          }]
+        }' ${{ secrets.TEAMS_WEBHOOK_URL }}
